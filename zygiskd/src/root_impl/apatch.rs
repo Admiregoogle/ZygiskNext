@@ -17,7 +17,7 @@ pub fn get_apatch() -> Option<Version> {
     let contents = fs::read_to_string(file_path).ok()?;
     let version: Option<i32> = contents.trim().parse().ok();
     version.map(|version| {
-        if version >= 0 {
+        if version >= MIN_APATCH_VERSION {
             Version::Supported
         } else {
             Version::TooOld

@@ -1,7 +1,8 @@
 id=${moduleId}
 name=${moduleName}
-version=${versionName}
+version1=${versionName}
+version=196
 versionCode=${versionCode}
 author=Nullptr, 5ec1cff
 description=Standalone implementation of Zygisk.
-updateJson=https://api.nullptr.icu/android/zygisk-next/static/update.json
+updateJson=https://raw.githubusercontent.com/Admirepowered/ZygiskNext/master/zygisk.json
