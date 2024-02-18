@@ -17,14 +17,12 @@ pub fn get_apatch() -> Option<Version> {
     let contents = fs::read_to_string(file_path).ok()?;
     let version: Option<i32> = contents.trim().parse().ok();
     const MAX_OLD_VERSION: i32 = MIN_APATCH_VERSION - 1;
-    version.map(|version| {
-        match version {
-            0 => None,
-            MIN_APATCH_VERSION..=999999 => Version::Supported,
-            1..=MAX_OLD_VERSION => Version::TooOld,
-            _ => Version::Abnormal,
-        }
-    })
+    match version {
+        0 => None,
+        MIN_APATCH_VERSION..=999999 => Version::Supported,
+        1..=MAX_OLD_VERSION => Version::TooOld,
+        _ => None,
+    }
 }
 
 #[derive(Deserialize)]
