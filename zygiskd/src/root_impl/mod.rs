@@ -22,10 +22,7 @@ pub fn setup() {
 
 
     let impl_ = match (ksu_version, apatch_version, magisk_version) {
-        (Some(_), Some(_), Some(_)) => RootImpl::Multiple,
-        (Some(_), Some(_), None) => RootImpl::Multiple,
         (Some(_), None, Some(_)) => RootImpl::Multiple,
-        (None, Some(_), Some(_)) => RootImpl::Multiple,
         (Some(ksu_version), None, None) => match ksu_version {
             kernelsu::Version::Supported => RootImpl::KernelSU,
             kernelsu::Version::TooOld => RootImpl::TooOld,
@@ -39,6 +36,11 @@ pub fn setup() {
         (None ,None, Some(magisk_version)) => match magisk_version {
             magisk::Version::Supported => RootImpl::Magisk,
             magisk::Version::TooOld => RootImpl::TooOld,
+        },
+        (Some(ksu_version), _, _) => match ksu_version {
+            kernelsu::Version::Supported => RootImpl::KernelSU,
+            kernelsu::Version::TooOld => RootImpl::TooOld,
+            kernelsu::Version::Abnormal => RootImpl::Abnormal,
         },
         _ => RootImpl::None,
     };
