@@ -5,7 +5,6 @@ use std::io::{BufRead, BufReader};
 use csv::Reader;
 use serde::Deserialize;
 use crate::constants::MIN_APATCH_VERSION;
-use crate::constants::MIN_APATCH_VERSION;
 
 pub enum Version {
     Supported,
@@ -21,9 +20,9 @@ pub fn get_apatch() -> Option<Version> {
     version.map(|version| {
         match version {
             0 => None,
-            MIN_APATCH_VERSION..=999999 => Some(Version::Supported),
-            1..=MAX_OLD_VERSION => Some(Version::TooOld),
-            _ => Some(Version::Abnormal),
+            MIN_APATCH_VERSION..=999999 => Version::Supported,
+            1..=MAX_OLD_VERSION => Version::TooOld,
+            _ => Version::Abnormal,
         }
     })
 }
