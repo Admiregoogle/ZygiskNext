@@ -25,7 +25,6 @@ pub fn setup() {
         (Some(_), Some(_), Some(_)) => RootImpl::Multiple,
         (Some(_), Some(_), None) => RootImpl::Multiple,
         (Some(_), None, Some(_)) => RootImpl::Multiple,
-        (None, Some(_), Some(_)) => RootImpl::Multiple,
         (Some(ksu_version), None, None) => match ksu_version {
             kernelsu::Version::Supported => RootImpl::KernelSU,
             kernelsu::Version::TooOld => RootImpl::TooOld,
