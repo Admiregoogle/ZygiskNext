@@ -5,22 +5,25 @@ use std::io::{BufRead, BufReader};
 use csv::Reader;
 use serde::Deserialize;
 use crate::constants::MIN_APATCH_VERSION;
-
+use crate::constants::MIN_APATCH_VERSION;
 
 pub enum Version {
     Supported,
     TooOld,
+    Abnormal,
 }
 
 pub fn get_apatch() -> Option<Version> {
     let file_path = "/data/adb/ap/version";
     let contents = fs::read_to_string(file_path).ok()?;
     let version: Option<i32> = contents.trim().parse().ok();
+    const MAX_OLD_VERSION: i32 = MIN_APATCH_VERSION - 1;
     version.map(|version| {
-        if version >= MIN_APATCH_VERSION {
-            Version::Supported
-        } else {
-            Version::TooOld
+        match version {
+            0 => None,
+            MIN_APATCH_VERSION..=999999 => Some(Version::Supported),
+            1..=MAX_OLD_VERSION => Some(Version::TooOld),
+            _ => Some(Version::Abnormal),
         }
     })
 }

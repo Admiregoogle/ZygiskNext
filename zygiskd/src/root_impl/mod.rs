@@ -34,7 +34,7 @@ pub fn setup() {
         (None,Some(apatch_version), None) => match apatch_version {
             apatch::Version::Supported => RootImpl::Apatch,
             apatch::Version::TooOld => RootImpl::TooOld,
-            //apatch::Version::Abnormal => RootImpl::Abnormal,
+            apatch::Version::Abnormal => RootImpl::Abnormal,
         },
         (None ,None, Some(magisk_version)) => match magisk_version {
             magisk::Version::Supported => RootImpl::Magisk,
