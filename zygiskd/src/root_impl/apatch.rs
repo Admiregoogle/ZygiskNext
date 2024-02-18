@@ -18,9 +18,9 @@ pub fn get_apatch() -> Option<Version> {
     let version: Option<i32> = contents.trim().parse().ok();
     const MAX_OLD_VERSION: i32 = MIN_APATCH_VERSION - 1;
     match version {
-        0 => None,
-        MIN_APATCH_VERSION..=999999 => Version::Supported,
-        1..=MAX_OLD_VERSION => Version::TooOld,
+        Some(0) => None,
+        Some(v) if v >= MIN_APATCH_VERSION && v <= 999999 => Some(Version::Supported),
+        Some(v) if v >= 1 && v <= MAX_OLD_VERSION => Some(Version::TooOld),
         _ => None,
     }
 }
